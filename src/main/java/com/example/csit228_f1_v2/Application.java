@@ -21,8 +21,6 @@ import java.io.IOException;
 
 public class Application extends javafx.application.Application {
     public static User user;
-    public static String currentUsername;
-    public static String currentPassword;
     public static UserDatabase users;
     public static Stage stage;
     @Override
