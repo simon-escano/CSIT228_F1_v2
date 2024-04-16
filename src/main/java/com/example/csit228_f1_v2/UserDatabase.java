@@ -36,6 +36,7 @@ public class UserDatabase {
                 statement.setString(2, password);
                 int rowsInserted = statement.executeUpdate();
                 System.out.println("Successfully created user. Rows inserted: " + rowsInserted);
+                return true;
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);

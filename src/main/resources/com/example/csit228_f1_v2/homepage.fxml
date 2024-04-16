@@ -1,22 +1,50 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: BLACK;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.csit228_f1_v2.HomeController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: BLACK;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.csit228_f1_v2.HomePage">
    <children>
-      <ToggleButton fx:id="tbNight" layoutX="486.0" layoutY="26.0" mnemonicParsing="false" onAction="#onNightModeClick" text="Night Mode" />
-      <HBox alignment="CENTER" layoutX="19.0" layoutY="337.0" prefHeight="49.0" prefWidth="563.0" spacing="8.0">
+      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="25.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Button fx:id="logout" mnemonicParsing="false" onAction="#onLogoutClick" text="Log Out" />
-            <Button fx:id="deleteAccount" mnemonicParsing="false" onAction="#onDeleteAccountClick" text="Delete Account" />
+            <ToggleButton fx:id="tbNight" mnemonicParsing="false" onAction="#onNightModeClick" text="Night Mode">
+               <font>
+                  <Font name="Comic Sans MS" size="20.0" />
+               </font></ToggleButton>
+            <Label fx:id="lblError" text="" textFill="#7c7c7c">
+               <font>
+                  <Font size="20.0" />
+               </font></Label>
+            <VBox alignment="CENTER_LEFT" prefHeight="67.0" prefWidth="479.0" spacing="10.0">
+               <children>
+                  <TextField fx:id="passwordInput">
+                     <font>
+                        <Font name="Comic Sans MS" size="20.0" />
+                     </font></TextField>
+                  <Button fx:id="changePassword" mnemonicParsing="false" onAction="#changePassword" text="Change Password">
+                     <font>
+                        <Font name="Comic Sans MS" size="20.0" />
+                     </font></Button>
+               </children>
+            </VBox>
+            <HBox alignment="CENTER" prefHeight="49.0" prefWidth="563.0" spacing="8.0">
+               <children>
+                  <Button fx:id="logout" mnemonicParsing="false" onAction="#logOut" text="Log Out">
+                     <font>
+                        <Font name="Comic Sans MS" size="20.0" />
+                     </font></Button>
+                  <Button fx:id="deleteAccount" mnemonicParsing="false" onAction="#deleteAccount" text="Delete Account">
+                     <font>
+                        <Font name="Comic Sans MS" size="20.0" />
+                     </font></Button>
+               </children>
+            </HBox>
          </children>
-      </HBox>
-      <VBox alignment="CENTER_LEFT" layoutX="61.0" layoutY="167.0" prefHeight="67.0" prefWidth="479.0" spacing="10.0">
-         <children>
-            <TextField fx:id="passwordInput" />
-            <Button fx:id="changePassword" mnemonicParsing="false" onAction="#onChangePasswordClick" text="Change Password" />
-         </children>
+         <padding>
+            <Insets bottom="50.0" left="50.0" right="50.0" top="50.0" />
+         </padding>
       </VBox>
    </children>
 </AnchorPane>
