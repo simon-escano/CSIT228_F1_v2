@@ -9,10 +9,8 @@ import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.input.MouseDragEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
@@ -21,14 +19,22 @@ import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 
 public class HelloApplication extends Application {
+    public static String currentUsername;
+    public static String currentPassword;
+    public static UserDatabase users;
+    public static Stage stage;
     @Override
     public void start(Stage stage) {
-        UserDatabase users = new UserDatabase("jdbc:mysql://localhost:3306/dbcsit228f1_escano", "root", "");
+        HelloApplication.stage = stage;
+        currentUsername = null;
+        currentPassword = null;
+        users = new UserDatabase("jdbc:mysql://localhost:3306/dbcsit228f1_escano", "root", "");
+        drawComponents(stage);
+    }
 
+    public static void drawComponents(Stage stage) {
         GridPane grid = new GridPane();
         grid.setAlignment(Pos.CENTER);
         Text txtWelcome = new Text("Welcome to CIT");
@@ -94,22 +100,32 @@ public class HelloApplication extends Application {
         btnRegister.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                System.out.println("Hello");
                 String username = tfUsername.getText();
                 String password = pfPassword.getText();
+                if (username.isEmpty() || password.isEmpty()) {
+                    System.out.println("Both fields should be filled.");
+                    return;
+                }
 
-                users.createUser(username, password);
+                if (!users.createUser(username, password)) {
+                    System.out.println("Someone already has that username.");
+                }
             }
         });
 
         btnLogin.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                System.out.println("Hello");
                 String username = tfUsername.getText();
                 String password = pfPassword.getText();
+                if (username.isEmpty() || password.isEmpty()) {
+                    System.out.println("Both fields should be filled.");
+                    return;
+                }
 
-                if (users.getUsers(username, password)) {
+                if (users.logIn(username, password)) {
+                    currentUsername = username;
+                    currentPassword = password;
                     try {
                         Parent p = FXMLLoader.load(getClass().getResource("homepage.fxml"));
                         Scene s = new Scene(p);
@@ -118,6 +134,8 @@ public class HelloApplication extends Application {
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
+                } else {
+                    System.out.println("Incorrect username or password.");
                 }
             }
         });

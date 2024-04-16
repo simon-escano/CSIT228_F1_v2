@@ -18,30 +18,32 @@ public class UserDatabase {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             c = DriverManager.getConnection(URL, USERNAME, PASSWORD);
-            System.out.println("DB Connection success!");
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        } catch (ClassNotFoundException e) {
+        } catch (SQLException | ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
         return c;
     }
 
-    public void createUser(String username, String password) {
+    public boolean createUser(String username, String password) {
         try (Connection c = getConnection();
              PreparedStatement statement = c.prepareStatement(
                      "INSERT INTO users (username, password) VALUES (?, ?)"
              )) {
-            statement.setString(1, username);
-            statement.setString(2, password);
-            int rowsInserted = statement.executeUpdate();
-            System.out.println("Rows inserted: " + rowsInserted);
+            String query = "SELECT * FROM users WHERE username='" + username + "'";
+            ResultSet res = statement.executeQuery(query);
+            if (!res.next()) {
+                statement.setString(1, username);
+                statement.setString(2, password);
+                int rowsInserted = statement.executeUpdate();
+                System.out.println("Successfully created user. Rows inserted: " + rowsInserted);
+            }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+        return false;
     }
 
-    public boolean getUsers(String username, String password) {
+    public boolean logIn(String username, String password) {
         try (Connection c = getConnection();
              Statement statement = c.createStatement()) {
             String query = "SELECT * FROM users";
@@ -59,17 +61,15 @@ public class UserDatabase {
         return false;
     }
 
-    public void changePassword(String oldPasword, String newPassword) {
+    public void changePassword(String username, String password) {
         try (Connection c = getConnection();
              PreparedStatement statement = c.prepareStatement(
-                     "UPDATE users SET name=? WHERE id=?"
+                     "UPDATE users SET password=? WHERE username=?"
              )) {
-            String new_name = "Cherry Lyn Beifong";
-            int id = 2;
-            statement.setString(1, new_name);
-            statement.setInt(2, id);
+            statement.setString(1, password);
+            statement.setString(2, username);
             int rowsUpdated = statement.executeUpdate();
-            System.out.println("Rows Updated: " + rowsUpdated);
+            System.out.println("Successfully changed password. Rows Updated: " + rowsUpdated);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -83,7 +83,7 @@ public class UserDatabase {
             statement.setString(1, username);
             statement.setString(2, password);
             int rowsDeleted = statement.executeUpdate();
-            System.out.println("Rows deleted: " + rowsDeleted);
+            System.out.println("Successfully deleted user. Rows deleted: " + rowsDeleted);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

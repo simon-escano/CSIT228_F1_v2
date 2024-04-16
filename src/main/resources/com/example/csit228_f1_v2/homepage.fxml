@@ -8,10 +8,15 @@
       <ToggleButton fx:id="tbNight" layoutX="486.0" layoutY="26.0" mnemonicParsing="false" onAction="#onNightModeClick" text="Night Mode" />
       <HBox alignment="CENTER" layoutX="19.0" layoutY="337.0" prefHeight="49.0" prefWidth="563.0" spacing="8.0">
          <children>
-            <Button mnemonicParsing="false" text="Log Out" />
-            <Button fx:id="changePassword" mnemonicParsing="false" text="Change Password" />
-            <Button fx:id="deleteAccount" mnemonicParsing="false" text="Delete Account" />
+            <Button fx:id="logout" mnemonicParsing="false" onAction="#onLogoutClick" text="Log Out" />
+            <Button fx:id="deleteAccount" mnemonicParsing="false" onAction="#onDeleteAccountClick" text="Delete Account" />
          </children>
       </HBox>
+      <VBox alignment="CENTER_LEFT" layoutX="61.0" layoutY="167.0" prefHeight="67.0" prefWidth="479.0" spacing="10.0">
+         <children>
+            <TextField fx:id="passwordInput" />
+            <Button fx:id="changePassword" mnemonicParsing="false" onAction="#onChangePasswordClick" text="Change Password" />
+         </children>
+      </VBox>
    </children>
 </AnchorPane>
