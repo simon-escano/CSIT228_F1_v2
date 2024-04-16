@@ -21,23 +21,20 @@ import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class HelloApplication extends Application {
     @Override
-    public void start(Stage stage) throws IOException {
-//        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("login-view.fxml"));
-//        Scene scene = new Scene(fxmlLoader.load(), 320, 240);
-//        stage.setTitle("Hello!");
-//        stage.setScene(scene);
+    public void start(Stage stage) {
+        UserDatabase users = new UserDatabase("jdbc:mysql://localhost:3306/dbcsit228f1_escano", "root", "");
 
         GridPane grid = new GridPane();
         grid.setAlignment(Pos.CENTER);
         Text txtWelcome = new Text("Welcome to CIT");
         txtWelcome.setFont(Font.font("Chiller", FontWeight.EXTRA_BOLD, 69));
         txtWelcome.setFill(Color.RED);
-//        grid.setAlignment();
         grid.setPadding(new Insets(20));
-//        grid.
         txtWelcome.setTextAlignment(TextAlignment.CENTER);
         grid.add(txtWelcome, 0, 0, 3, 1);
 
@@ -49,7 +46,6 @@ public class HelloApplication extends Application {
         TextField tfUsername = new TextField();
         grid.add(tfUsername, 1, 1);
         tfUsername.setFont(Font.font(30));
-//        tfUsername.setMaxWidth(150);
 
         Label lbPassword = new Label("Password");
         lbPassword.setFont(Font.font(30));
@@ -66,18 +62,7 @@ public class HelloApplication extends Application {
         tmpPassword.setVisible(false);
 
         ToggleButton btnShow = new ToggleButton("( )");
-//        btnShow.setOnAction(new EventHandler<ActionEvent>() {
-//            @Override
-//            public void handle(ActionEvent actionEvent) {
-//                if (btnShow.isSelected()) {
-//                    tmpPassword.setText(pfPassword.getText());
-//                    tmpPassword.setVisible(true);
-//                } else {
-//                    tmpPassword.setVisible(false);
-//                    pfPassword.setText(tmpPassword.getText());
-//                }
-//            }
-//        });
+
         btnShow.setOnMousePressed(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
@@ -98,21 +83,41 @@ public class HelloApplication extends Application {
         btnShow.setOnMouseExited(release);
         grid.add(btnShow, 2,2);
 
+        Button btnRegister = new Button("Register");
+        btnRegister.setFont(Font.font(40));
+        grid.add(btnRegister, 0, 3, 2, 1);
+
         Button btnLogin = new Button("Log In");
         btnLogin.setFont(Font.font(40));
-        grid.add(btnLogin, 0, 3, 2, 1);
+        grid.add(btnLogin, 0, 4, 2, 1);
+
+        btnRegister.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                System.out.println("Hello");
+                String username = tfUsername.getText();
+                String password = pfPassword.getText();
+
+                users.createUser(username, password);
+            }
+        });
 
         btnLogin.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
                 System.out.println("Hello");
-                try {
-                    Parent p = FXMLLoader.load(getClass().getResource("homepage.fxml"));
-                    Scene s = new Scene(p);
-                    stage.setScene(s);
-                    stage.show();
-                } catch (IOException e) {
-                    e.printStackTrace();
+                String username = tfUsername.getText();
+                String password = pfPassword.getText();
+
+                if (users.getUsers(username, password)) {
+                    try {
+                        Parent p = FXMLLoader.load(getClass().getResource("homepage.fxml"));
+                        Scene s = new Scene(p);
+                        stage.setScene(s);
+                        stage.show();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         });

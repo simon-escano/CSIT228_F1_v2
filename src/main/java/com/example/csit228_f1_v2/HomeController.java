@@ -8,19 +8,6 @@ import javafx.scene.control.ToggleButton;
 public class HomeController {
 
     public ToggleButton tbNight;
-    public ProgressIndicator piProgress;
-    public Slider slSlider;
-    public ProgressBar pbProgress;
-
-    public void onSliderChange() {
-        double val = slSlider.getValue();
-        System.out.println(val);
-        piProgress.setProgress(val/100);
-        pbProgress.setProgress(val/100);
-        if (val == 100) {
-            System.exit(0);
-        }
-    }
 
     public void onNightModeClick() {
         if (tbNight.isSelected()) {
