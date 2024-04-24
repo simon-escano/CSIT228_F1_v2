@@ -1,50 +1,68 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.*?>
+<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: BLACK;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.csit228_f1_v2.HomePage">
+<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: #202124;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.csit228_f1_v2.HomePage">
    <children>
-      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="25.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <HBox alignment="CENTER" spacing="8.0" style="-fx-border-width: 0 0 1 0; -fx-border-color: #5F6368;" VBox.vgrow="NEVER">
          <children>
-            <ToggleButton fx:id="tbNight" mnemonicParsing="false" onAction="#onNightModeClick" text="Night Mode">
+            <Label text="Hello, " textFill="WHITE">
                <font>
-                  <Font name="Comic Sans MS" size="20.0" />
-               </font></ToggleButton>
-            <Label fx:id="lblError" text="" textFill="#7c7c7c">
+                  <Font name="System Bold" size="20.0" />
+               </font>
+            </Label>
+            <Label fx:id="lblUsername" text="User!" textFill="#66abff">
                <font>
-                  <Font size="20.0" />
-               </font></Label>
-            <VBox alignment="CENTER_LEFT" prefHeight="67.0" prefWidth="479.0" spacing="10.0">
-               <children>
-                  <TextField fx:id="passwordInput">
-                     <font>
-                        <Font name="Comic Sans MS" size="20.0" />
-                     </font></TextField>
-                  <Button fx:id="changePassword" mnemonicParsing="false" onAction="#changePassword" text="Change Password">
-                     <font>
-                        <Font name="Comic Sans MS" size="20.0" />
-                     </font></Button>
-               </children>
-            </VBox>
-            <HBox alignment="CENTER" prefHeight="49.0" prefWidth="563.0" spacing="8.0">
-               <children>
-                  <Button fx:id="logout" mnemonicParsing="false" onAction="#logOut" text="Log Out">
-                     <font>
-                        <Font name="Comic Sans MS" size="20.0" />
-                     </font></Button>
-                  <Button fx:id="deleteAccount" mnemonicParsing="false" onAction="#deleteAccount" text="Delete Account">
-                     <font>
-                        <Font name="Comic Sans MS" size="20.0" />
-                     </font></Button>
-               </children>
-            </HBox>
+                  <Font name="System Bold" size="20.0" />
+               </font>
+               <HBox.margin>
+                  <Insets left="-8.0" />
+               </HBox.margin>
+            </Label>
+            <Separator opacity="0.0" HBox.hgrow="ALWAYS" />
+            <Button fx:id="btnCreate" mnemonicParsing="false" style="-fx-background-color: transparent; -fx-border-color: #66abff; -fx-border-radius: 8px;" text="Take a scrib!" textFill="#66abff">
+               <font>
+                  <Font size="14.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+            <MenuButton graphicTextGap="8.0" mnemonicParsing="false" style="-fx-background-color: #202124; -fx-border-color: #5F6368; -fx-border-radius: 8px;" text="Settings" textFill="#5f6368">
+               <items>
+                  <MenuItem fx:id="btnLogOut" mnemonicParsing="false" text="Log Out" />
+                  <MenuItem fx:id="btnChangePassword" mnemonicParsing="false" text="Change Password" />
+                  <MenuItem fx:id="btnDeleteAccount" mnemonicParsing="false" text="Delete Account" />
+               </items>
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </MenuButton>
          </children>
+         <VBox.margin>
+            <Insets />
+         </VBox.margin>
          <padding>
-            <Insets bottom="50.0" left="50.0" right="50.0" top="50.0" />
-         </padding>
-      </VBox>
+            <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
+         </padding></HBox>
+      <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: transparent;" VBox.vgrow="ALWAYS">
+         <content>
+            <HBox prefHeight="100.0" prefWidth="200.0" spacing="16.0" style="-fx-background-color: #202124;">
+               <children>
+                  <VBox fx:id="notes_partition_0" prefHeight="200.0" prefWidth="100.0" spacing="16.0" HBox.hgrow="ALWAYS" />
+                  <VBox fx:id="notes_partition_1" prefHeight="200.0" prefWidth="100.0" spacing="16.0" HBox.hgrow="ALWAYS" />
+                  <VBox fx:id="notes_partition_2" prefHeight="200.0" prefWidth="100.0" spacing="16.0" HBox.hgrow="ALWAYS" />
+                  <VBox fx:id="notes_partition_3" prefHeight="200.0" prefWidth="100.0" spacing="16.0" HBox.hgrow="ALWAYS" />
+               </children>
+               <padding>
+                  <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
+               </padding>
+            </HBox>
+         </content>
+      </ScrollPane>
    </children>
-</AnchorPane>
+</VBox>

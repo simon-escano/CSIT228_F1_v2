@@ -1,14 +1,10 @@
 package com.example.csit228_f1_v2;
 
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
+import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-
-import java.io.IOException;
 
 public class LoginPage {
     public Label lblError;
@@ -17,39 +13,35 @@ public class LoginPage {
     public Button btnRegister;
     public Button btnLogin;
 
-    public void register() {
-        String username = tfUsername.getText();
-        String password = pfPassword.getText();
+    @FXML
+    public void initialize() {
+        btnRegister.setOnAction(e -> register(tfUsername.getText(), pfPassword.getText()));
+        btnLogin.setOnAction(e -> login(tfUsername.getText(), pfPassword.getText()));
+    }
+
+    public void register(String username, String password) {
         if (username.isEmpty() || password.isEmpty()) {
             lblError.setText("Both fields should be filled.");
             return;
         }
 
-        if (!Application.users.createUser(username, password)) {
+        if (!Main.db.createUser(username, password)) {
             lblError.setText("Someone already has that username.");
         } else {
             lblError.setText("User " + username + " successfully created");
         }
     }
 
-    public void login() {
-        String username = tfUsername.getText();
-        String password = pfPassword.getText();
+    public void login(String username, String password) {
         if (username.isEmpty() || password.isEmpty()) {
             lblError.setText("Both fields should be filled.");
             return;
         }
 
-        if (Application.users.logIn(username, password)) {
-            Application.user = new User(username, password);
-            try {
-                Parent p = FXMLLoader.load(getClass().getResource("homepage.fxml"));
-                Scene s = new Scene(p);
-                Application.stage.setScene(s);
-                Application.stage.show();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+        int id = Main.db.logIn(username, password);
+        if (id != -1) {
+            Main.user = new User(id, username, password);
+            Main.load("homepage.fxml", Main.stage);
         } else {
             lblError.setText("Incorrect username or password.");
         }
