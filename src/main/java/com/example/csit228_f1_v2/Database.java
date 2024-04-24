@@ -56,7 +56,7 @@ public class Database {
     public int logIn(String username, String password) {
         try (Connection c = getConnection();
              Statement statement = c.createStatement()) {
-            String query = "SELECT id FROM users WHERE username='" + username + "' AND password='" + password + "'";
+            String query = "SELECT id FROM users WHERE BINARY username='" + username + "' AND BINARY password='" + password + "'";
             ResultSet res = statement.executeQuery(query);
             if (res.next()) {
                 return res.getInt("id");
