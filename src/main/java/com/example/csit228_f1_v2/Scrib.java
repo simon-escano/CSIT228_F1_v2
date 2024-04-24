@@ -1,19 +1,14 @@
 package com.example.csit228_f1_v2;
 
-import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.NodeOrientation;
 import javafx.scene.Cursor;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
-
-import java.io.IOException;
 
 public class Scrib extends VBox {
     int id;
@@ -49,7 +44,7 @@ public class Scrib extends VBox {
             Main.selectedScrib = this;
             Main.load("editscribpage.fxml", Main.stage);
         });
-
+        setMargin(editButton, new Insets(8, 0, 0, 0));
 
         Button deleteButton = new Button("Delete Scrib");
         deleteButton.setMaxWidth(Double.MAX_VALUE);
