@@ -16,7 +16,7 @@ public class Database {
         try (Connection c = getConnection();
              Statement statement = c.createStatement()) {
             statement.executeUpdate("CREATE TABLE IF NOT EXISTS users (id INT PRIMARY KEY AUTO_INCREMENT, username VARCHAR(50) NOT NULL, password VARCHAR(50) NOT NULL)");
-            statement.executeUpdate("CREATE TABLE IF NOT EXISTS scribs (id INT PRIMARY KEY AUTO_INCREMENT, userid INT NOT NULL, title VARCHAR(255) NOT NULL, body VARCHAR(1000) NOT NULL, FOREIGN KEY (userid) REFERENCES users(id))");
+            statement.executeUpdate("CREATE TABLE IF NOT EXISTS scribs (id INT PRIMARY KEY AUTO_INCREMENT, userid INT NOT NULL, title VARCHAR(255) NOT NULL, body VARCHAR(1000) NOT NULL, FOREIGN KEY (userid) REFERENCES users(id) ON DELETE CASCADE)");
         } catch (SQLException e) {
             e.printStackTrace();
         }

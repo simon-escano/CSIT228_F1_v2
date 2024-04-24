@@ -9,16 +9,16 @@ public class ChangePasswordPage {
     @FXML
     Label lblError;
     @FXML
-    TextField tfOldPassword;
+    TextField pfOldPassword;
     @FXML
-    TextField tfNewPassword;
+    TextField pfNewPassword;
     @FXML
     Button btnChange;
     @FXML
     Button btnCancel;
     @FXML
     public void initialize() {
-        btnChange.setOnAction(e -> changePassword(tfOldPassword.getText(), tfNewPassword.getText()));
+        btnChange.setOnAction(e -> changePassword(pfOldPassword.getText(), pfNewPassword.getText()));
         btnCancel.setOnAction(e -> {
             Main.load("homepage.fxml", Main.stage);
         });
@@ -42,6 +42,7 @@ public class ChangePasswordPage {
         }
 
         Main.db.changePassword(Main.user.id, newPassword);
+        Main.user.password = newPassword;
         Main.load("homepage.fxml", Main.stage);
     }
 }
